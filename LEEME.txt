@@ -1,0 +1,23 @@
+CHAT DE ENCRIPTACIÓN DE MENSAJES
+================================
+
+1. Instalar (solo en la computadora que va a ser el servidor):
+       pip install -r requirements.txt
+
+2. Iniciar el servidor:
+       python app.py
+
+   En la terminal aparece el link, por ejemplo:
+       Link para entrar al chat: http://192.168.1.10:5000
+
+3. Las dos personas abren ese link en el navegador (la del servidor también).
+   La otra computadora tiene que estar en la misma red (mismo Wi-Fi o router).
+
+4. Si la otra computadora no carga el link: permitir Python en el
+   Firewall de Windows (red privada).
+
+Archivos:
+   app.py            -> servidor y rutas del chat
+   encriptacion.py   -> funciones encriptar() y desencriptar() con Fernet
+   clave.key         -> clave secreta (se crea sola la primera vez)
+   templates/index.html, static/estilos.css, static/chat.js -> interfaz
