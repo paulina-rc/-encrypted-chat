@@ -44,8 +44,8 @@ def enviar():
         return jsonify({"ok": False})
 
     consola = []
-    consola.append(paso("[1] Enviando mensaje:", "enviando", texto))
-    consola.append(paso("[2] Encriptando mensaje...", "encriptando"))
+    consola.append(paso("Enviando mensaje...", "enviando"))
+    consola.append(paso("Encriptando mensaje...", "encriptando"))
 
     texto_encriptado = encriptar(texto)
 
@@ -55,7 +55,7 @@ def enviar():
         "encriptado": texto_encriptado,
         "hora": datetime.now().strftime("%H:%M"),
     })
-    consola.append(paso("[3] Mensaje encriptado enviado", "enviado", texto_encriptado))
+    consola.append(paso("Mensaje enviado", "enviado"))
 
     return jsonify({"ok": True, "consola": consola})
 
@@ -74,15 +74,14 @@ def ver_mensajes():
         else:
             # mensaje del otro
             consola = []
-            consola.append(paso(f"[1] Nuevo mensaje de {m['de']}", "nuevo", m["encriptado"]))
-            consola.append(paso("[2] Desencriptando mensaje...", "desencriptando"))
+            consola.append(paso("Mensaje recibido", "recibido"))
+            consola.append(paso("Desencriptando mensaje...", "desencriptando"))
             texto = desencriptar(m["encriptado"])
-            consola.append(paso("[3] Mensaje recibido", "recibido"))
             if texto is None:
-                consola.append(paso("[4] Error: el mensaje fue alterado o la clave no coincide", "error"))
+                consola.append(paso("Error: no se pudo desencriptar", "error"))
                 texto = "(mensaje dañado)"
             else:
-                consola.append(paso("[4] Mensaje desencriptado:", "desencriptado", texto))
+                consola.append(paso("Mensaje desencriptado", "desencriptado"))
             respuesta.append({"id": m["id"], "mio": False, "hora": m["hora"],
                               "de": m["de"], "texto": texto, "consola": consola})
 

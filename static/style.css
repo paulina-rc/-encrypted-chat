@@ -4,10 +4,16 @@ body {
     background: #f4f6f8;
     font-family: "Segoe UI", system-ui, sans-serif;
     color: #1c2430;
-    padding: 28px 16px 36px;
+    padding: 14px 16px;
 }
 
-.contenedor { max-width: 1180px; margin: 0 auto; }
+.contenedor {
+    max-width: 1180px;
+    margin: 0 auto;
+    height: calc(100vh - 28px);
+    display: flex;
+    flex-direction: column;
+}
 
 /* encabezado */
 header {
@@ -16,9 +22,9 @@ header {
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 12px;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
 }
-h1 { font-size: 26px; font-weight: 800; }
+h1 { font-size: 22px; font-weight: 800; }
 h1 span { color: #0a8cf0; }
 
 .estado { display: flex; gap: 10px; font-size: 13px; color: #4d5a69; }
@@ -38,13 +44,22 @@ h1 span { color: #0a8cf0; }
 }
 
 /* chat */
-.chat { background: #c9d2dc; border-radius: 26px; padding: 26px 30px 18px; }
+.chat {
+    background: #c9d2dc;
+    border-radius: 22px;
+    padding: 16px 22px 14px;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
 
 .mensajes {
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    height: 330px;
+    gap: 10px;
+    flex: 1;
+    min-height: 0;
     overflow-y: auto;
     padding-right: 6px;
 }
@@ -52,9 +67,9 @@ h1 span { color: #0a8cf0; }
 
 .burbuja {
     max-width: 58%;
-    padding: 11px 18px 8px;
+    padding: 8px 15px 6px;
     border-radius: 22px;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.35;
     word-wrap: break-word;
 }
@@ -64,12 +79,12 @@ h1 span { color: #0a8cf0; }
 .enviado  { align-self: flex-end; background: #0a95ff; color: #fff; border-bottom-right-radius: 6px; }
 .quien { font-size: 12px; color: #55606d; margin: 2px 0 -8px 8px; }
 
-.entrada { display: flex; gap: 10px; margin-top: 18px; }
+.entrada { display: flex; gap: 10px; margin-top: 12px; }
 .entrada input {
     flex: 1;
     border: 0;
     border-radius: 999px;
-    padding: 14px 20px;
+    padding: 11px 18px;
     font: inherit;
     font-size: 15px;
     outline-color: #0a95ff;
@@ -88,56 +103,31 @@ h1 span { color: #0a8cf0; }
 .entrada button:hover { background: #0780dc; }
 
 /* consola */
-h2 { font-size: 22px; font-weight: 800; margin: 26px 0 12px; }
-h2 small { font-size: 13px; font-weight: 500; color: #6a7684; margin-left: 8px; }
+h2 { font-size: 16px; font-weight: 800; margin: 12px 0 8px; }
 
 .consola {
     background: #1f2a36;
-    border-radius: 22px;
-    padding: 20px 26px;
+    border-radius: 18px;
+    padding: 12px 20px;
     font-family: "Cascadia Code", Consolas, monospace;
-    font-size: 13.5px;
-    line-height: 1.8;
+    font-size: 13px;
+    line-height: 1.7;
     color: #c6d3dc;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0 40px;
-}
-.columna > div { height: 260px; overflow-y: auto; }
-.columna h3 {
-    font-family: "Segoe UI", system-ui, sans-serif;
-    font-size: 12px;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: #7f93a3;
-    margin-bottom: 6px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid #344352;
+    height: 150px;
+    flex-shrink: 0;
+    overflow-y: auto;
 }
 
-.linea .t { color: #6f8191; margin-right: 8px; }
-.linea .blanco { color: #fff; }
-.cifrado {
-    display: block;
-    color: #93a4b2;
-    padding-left: 72px;
-    word-break: break-all;
-    font-size: 12.5px;
-    line-height: 1.5;
-    margin: 2px 0 6px;
-}
-.cifrado::before { content: "↳ "; color: #f29d1a; }
+.linea .t { color: #6f8191; margin-right: 10px; }
 
 /* colores */
-.p-enviando, .p-nuevo             { color: #f29d1a; }
+.p-enviando, .p-recibido          { color: #f29d1a; }
 .p-encriptando, .p-desencriptando { color: #f5d77a; }
 .p-enviado, .p-desencriptado      { color: #2cc9a5; }
-.p-recibido                       { color: #8cc3d6; }
 .p-error                          { color: #ff6b6b; }
 
 /* celular */
 @media (max-width: 760px) {
-    .consola { grid-template-columns: 1fr; }
     .burbuja { max-width: 85%; }
-    .chat { padding: 18px; }
+    .chat { padding: 14px; }
 }
