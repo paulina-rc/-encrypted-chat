@@ -1,6 +1,6 @@
-==============================================================
+
             CHAT DE ENCRIPTACIÓN DE MENSAJES
-==============================================================
+
 
 Chat web para dos personas en la misma red local (Wi-Fi o router).
 Cada mensaje se encripta con Fernet apenas llega al servidor y se
