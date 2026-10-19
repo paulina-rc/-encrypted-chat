@@ -1,5 +1,3 @@
-/* ===== Estilos del Chat de encriptación de mensajes ===== */
-
 * { box-sizing: border-box; margin: 0; }
 
 body {
@@ -11,7 +9,7 @@ body {
 
 .contenedor { max-width: 1180px; margin: 0 auto; }
 
-/* ----- Encabezado ----- */
+/* encabezado */
 header {
     display: flex;
     align-items: center;
@@ -39,7 +37,7 @@ h1 span { color: #0a8cf0; }
     margin-right: 6px;
 }
 
-/* ----- Chat ----- */
+/* chat */
 .chat { background: #c9d2dc; border-radius: 26px; padding: 26px 30px 18px; }
 
 .mensajes {
@@ -89,7 +87,7 @@ h1 span { color: #0a8cf0; }
 }
 .entrada button:hover { background: #0780dc; }
 
-/* ----- Consola ----- */
+/* consola */
 h2 { font-size: 22px; font-weight: 800; margin: 26px 0 12px; }
 h2 small { font-size: 13px; font-weight: 500; color: #6a7684; margin-left: 8px; }
 
@@ -130,14 +128,14 @@ h2 small { font-size: 13px; font-weight: 500; color: #6a7684; margin-left: 8px; 
 }
 .cifrado::before { content: "↳ "; color: #f29d1a; }
 
-/* Colores de cada tipo de paso */
-.p-enviando, .p-nuevo             { color: #f29d1a; }  /* naranja */
-.p-encriptando, .p-desencriptando { color: #f5d77a; }  /* amarillo */
-.p-enviado, .p-desencriptado      { color: #2cc9a5; }  /* verde */
-.p-recibido                       { color: #8cc3d6; }  /* celeste */
-.p-error                          { color: #ff6b6b; }  /* rojo */
+/* colores */
+.p-enviando, .p-nuevo             { color: #f29d1a; }
+.p-encriptando, .p-desencriptando { color: #f5d77a; }
+.p-enviado, .p-desencriptado      { color: #2cc9a5; }
+.p-recibido                       { color: #8cc3d6; }
+.p-error                          { color: #ff6b6b; }
 
-/* Pantallas pequeñas (celular) */
+/* celular */
 @media (max-width: 760px) {
     .consola { grid-template-columns: 1fr; }
     .burbuja { max-width: 85%; }
