@@ -1,98 +1,137 @@
+# 🔐 Encrypted Chat
 
-            CHAT DE ENCRIPTACIÓN DE MENSAJES
+> Two computers. One Wi-Fi. Secret messages.
 
+This is a small web chat for **two people on the same network**.
+Every message is locked (encrypted) before it is saved, and you can **watch it happen** in a live console under the chat.
 
-Chat web para dos personas en la misma red local (Wi-Fi o router).
-Cada mensaje se encripta con Fernet apenas llega al servidor y se
-guarda SOLO en su versión encriptada. Al entregarlo a la otra persona,
-el servidor lo desencripta. La interfaz muestra paso a paso lo que
-pasa con cada mensaje (enviar -> encriptar -> recibir -> desencriptar).
+---
 
+## 🧳 The trip of a message
 
---------------------------------------------------------------
- REQUISITOS
---------------------------------------------------------------
-   - Python 3.8 o superior
-   - Librerías: flask y cryptography (están en requirements.txt)
-   - Dos computadoras conectadas a la misma red
+What happens when you type `hello` and press **Send**:
 
+```
+  YOU                    SERVER                    YOUR FRIEND
+   │                        │                          │
+   │ ── "hello" ──────────▶ │                          │
+   │                        │  🔒 lock it              │
+   │                        │  gAAAAABn3k...           │
+   │                        │  (only this is saved)    │
+   │                        │                          │
+   │                        │ ◀──── any new messages? ─│
+   │                        │  🔓 unlock it            │
+   │                        │ ───── "hello" ─────────▶ │
+```
 
---------------------------------------------------------------
- INSTALACIÓN Y USO
---------------------------------------------------------------
-1. Instalar dependencias (solo en la computadora que será el servidor):
+And this is what you see in the console:
 
-       pip install -r requirements.txt
+```
+14:32:05  Enviando mensaje...
+14:32:06  Encriptando mensaje...
+14:32:07  Mensaje enviado
+          gAAAAABn3kQx8f2...
+```
 
-2. Iniciar el servidor:
+On the other side:
 
-       python app.py
+```
+14:32:08  Mensaje recibido
+          gAAAAABn3kQx8f2...
+14:32:09  Desencriptando mensaje...
+14:32:10  Mensaje desencriptado
+```
 
-   En la terminal aparece el link para entrar, por ejemplo:
+The steps show up one by one, slowly, so you can follow them.
 
-       Link para entrar al chat: http://192.168.1.10:5000
+---
 
-3. Las dos personas abren ese link en el navegador
-   (la persona del servidor también).
+## 🚀 Start in 3 steps
 
-4. Escribir un mensaje y presionar Enviar. Los mensajes nuevos
-   se actualizan solos cada segundo.
+**1. Install** (only on the computer that will be the server)
 
-Prueba rápida de la encriptación (sin abrir el chat):
+```bash
+pip install -r requirements.txt
+```
 
-       python encryted.py
+**2. Run**
 
+```bash
+python app.py
+```
 
---------------------------------------------------------------
- CÓMO FUNCIONA LA ENCRIPTACIÓN
---------------------------------------------------------------
-   Algoritmo: Fernet (librería cryptography)
-     - AES-128 en modo CBC para cifrar el texto
-     - HMAC-SHA256 para firmar el mensaje y detectar cambios
+**3. Open the link** that shows up in the terminal, on both computers:
 
-   Clave: se guarda en clave.key. Si no existe, se genera sola
-   la primera vez que se ejecuta el programa.
+```
+Link para entrar al chat: http://192.168.1.10:5000
+```
 
-   Si un mensaje fue alterado o la clave no coincide, Fernet lo
-   detecta y el chat muestra "(mensaje dañado)".
+That's it. New messages show up on their own every second.
 
+> 💡 Want to test the encryption without the chat? Run `python encryted.py`.
 
---------------------------------------------------------------
- ESTRUCTURA DEL PROYECTO
---------------------------------------------------------------
-   app.py                 Servidor Flask y rutas del chat
-                            /          -> página del chat
-                            /enviar    -> recibe y encripta un mensaje
-                            /mensajes  -> entrega mensajes desencriptados
-   encryted.py            Funciones encriptar() y desencriptar()
-   clave.key              Clave secreta de Fernet
-   requirements.txt       Dependencias de Python
-   templates/index.html   Página del chat
-   static/style.css       Estilos de la interfaz
-   static/chat.js         Lógica del navegador (enviar, recibir, consola)
+---
 
+## 🔑 The secret key
 
---------------------------------------------------------------
- PROBLEMAS COMUNES
---------------------------------------------------------------
-   * La otra computadora no carga el link
-       -> Verificar que estén en la misma red.
-       -> Permitir Python en el Firewall de Windows (red privada).
+The lock and the key are made with **Fernet** (from the `cryptography` library):
 
-   * "Falta la dependencia 'cryptography'"
-       -> Ejecutar: pip install -r requirements.txt
+| What           | How                                        |
+| -------------- | ------------------------------------------ |
+| Lock the text  | AES-128                                    |
+| Detect changes | HMAC-SHA256 (a kind of digital seal)       |
+| The key        | Saved in `clave.key`, made automatically the first time |
 
-   * El puerto 5000 está ocupado
-       -> Cerrar el otro programa que lo usa o cambiar el puerto
-          en la última línea de app.py.
+If someone changes a message, or the key is not the same, the chat shows **`(mensaje dañado)`** instead of the text.
 
+**Rules for the key:**
+- 🙊 Don't share it. Anyone with `clave.key` can read the messages.
+- 🚫 Don't upload it. Keep it in `.gitignore`.
+- 🔁 If you delete it, a new one is made, and old messages can't be opened anymore.
 
---------------------------------------------------------------
- NOTAS
---------------------------------------------------------------
-   - Los mensajes se guardan en memoria: al cerrar el servidor
-     se borran.
-   - clave.key es secreta. Quien la tenga puede leer los mensajes,
-     así que no se debe compartir ni subir a repositorios públicos.
-   - Proyecto educativo: la conexión usa HTTP (sin HTTPS), por lo
-     que no está pensado para usarse fuera de una red de confianza.
+---
+
+## 🗺️ What's inside
+
+```
+📁 chat_encriptacion
+├── app.py              → the server (Flask)
+├── encryted.py         → lock and unlock functions
+├── requirements.txt    → what to install
+├── templates/
+│   └── index.html      → the chat page
+└── static/
+    ├── style.css       → how it looks
+    └── chat.js         → send, receive, and the console
+```
+
+Server routes:
+
+| Route       | What it does                          |
+| ----------- | ------------------------------------- |
+| `/`         | Opens the chat                        |
+| `/enviar`   | Gets a message and encrypts it        |
+| `/mensajes` | Gives back new messages, decrypted    |
+
+---
+
+## 🆘 Something is not working?
+
+**"My friend can't open the link"**
+→ Check that both computers are on the same Wi-Fi.
+→ On Windows, allow Python in the Firewall (private network).
+
+**"It says `cryptography` is missing"**
+→ Run `pip install -r requirements.txt` again.
+
+**"Port 5000 is busy"**
+→ Close the other program, or change the port in the last line of `app.py`.
+
+---
+
+## ⚠️ Good to know
+
+- Messages live in memory. **When you stop the server, they are gone.**
+- The server has the key, so the server can read the messages. This is not end-to-end encryption.
+- It uses HTTP, not HTTPS. Use it only on a network you trust.
+- This is a school/learning project, not a real messaging app.
