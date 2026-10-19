@@ -5,7 +5,13 @@
 # ============================================================
 
 import os
-from cryptography.fernet import Fernet, InvalidToken
+
+try:
+    from cryptography.fernet import Fernet, InvalidToken  # type: ignore[import-not-found]
+except ModuleNotFoundError as exc:
+    raise RuntimeError(
+        "Falta la dependencia 'cryptography'. Instálala con: pip install cryptography"
+    ) from exc
 
 ARCHIVO_CLAVE = "clave.key"
 
