@@ -1,4 +1,4 @@
-# 🔐 Encrypted Chat
+#  Encrypted Chat
 
 > Two computers. One Wi-Fi. Secret messages.
 
@@ -7,22 +7,6 @@ Every message is locked (encrypted) before it is saved, and you can **watch it h
 
 ---
 
-## 🧳 The trip of a message
-
-What happens when you type `hello` and press **Send**:
-
-```
-  YOU                    SERVER                    YOUR FRIEND
-   │                        │                          │
-   │ ── "hello" ──────────▶ │                          │
-   │                        │  🔒 lock it              │
-   │                        │  gAAAAABn3k...           │
-   │                        │  (only this is saved)    │
-   │                        │                          │
-   │                        │ ◀──── any new messages? ─│
-   │                        │  🔓 unlock it            │
-   │                        │ ───── "hello" ─────────▶ │
-```
 
 And this is what you see in the console:
 
@@ -46,7 +30,7 @@ The steps show up one by one, slowly, so you can follow them.
 
 ---
 
-## 🚀 Start in 3 steps
+##  Start in 3 steps
 
 **1. Install** (only on the computer that will be the server)
 
@@ -66,13 +50,9 @@ python app.py
 Link para entrar al chat: http://192.168.1.10:5000
 ```
 
-That's it. New messages show up on their own every second.
-
-> 💡 Want to test the encryption without the chat? Run `python encryted.py`.
-
 ---
 
-## 🔑 The secret key
+##  The secret key
 
 The lock and the key are made with **Fernet** (from the `cryptography` library):
 
@@ -84,17 +64,12 @@ The lock and the key are made with **Fernet** (from the `cryptography` library):
 
 If someone changes a message, or the key is not the same, the chat shows **`(mensaje dañado)`** instead of the text.
 
-**Rules for the key:**
-- 🙊 Don't share it. Anyone with `clave.key` can read the messages.
-- 🚫 Don't upload it. Keep it in `.gitignore`.
-- 🔁 If you delete it, a new one is made, and old messages can't be opened anymore.
-
 ---
 
-## 🗺️ What's inside
+## What's inside
 
 ```
-📁 chat_encriptacion
+ chat_encriptacion
 ├── app.py              → the server (Flask)
 ├── encryted.py         → lock and unlock functions
 ├── requirements.txt    → what to install
@@ -104,30 +79,6 @@ If someone changes a message, or the key is not the same, the chat shows **`(men
     ├── style.css       → how it looks
     └── chat.js         → send, receive, and the console
 ```
-
-Server routes:
-
-| Route       | What it does                          |
-| ----------- | ------------------------------------- |
-| `/`         | Opens the chat                        |
-| `/enviar`   | Gets a message and encrypts it        |
-| `/mensajes` | Gives back new messages, decrypted    |
-
----
-
-## 🆘 Something is not working?
-
-**"My friend can't open the link"**
-→ Check that both computers are on the same Wi-Fi.
-→ On Windows, allow Python in the Firewall (private network).
-
-**"It says `cryptography` is missing"**
-→ Run `pip install -r requirements.txt` again.
-
-**"Port 5000 is busy"**
-→ Close the other program, or change the port in the last line of `app.py`.
-
----
 
 ## ⚠️ Good to know
 
