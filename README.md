@@ -80,9 +80,4 @@ If someone changes a message, or the key is not the same, the chat shows **`(men
     └── chat.js         → send, receive, and the console
 ```
 
-## ⚠️ Good to know
 
-- Messages live in memory. **When you stop the server, they are gone.**
-- The server has the key, so the server can read the messages. This is not end-to-end encryption.
-- It uses HTTP, not HTTPS. Use it only on a network you trust.
-- This is a school/learning project, not a real messaging app.
