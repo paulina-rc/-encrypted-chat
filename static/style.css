@@ -119,6 +119,15 @@ h2 { font-size: 16px; font-weight: 800; margin: 12px 0 8px; }
 }
 
 .linea .t { color: #6f8191; margin-right: 10px; }
+.cifrado {
+    display: block;
+    color: #93a4b2;
+    padding-left: 76px;
+    word-break: break-all;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-bottom: 4px;
+}
 
 /* colores */
 .p-enviando, .p-recibido          { color: #f29d1a; }

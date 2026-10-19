@@ -43,7 +43,11 @@ function mostrarBurbuja(mensaje) {
 // consola: muestra las lineas una por una, con pausa
 async function mostrarEnConsola(lineas) {
     for (const linea of lineas) {
-        const html = `<div class="linea"><span class="t">${horaActual()}</span><span class="p-${linea.tipo}">${linea.texto}</span></div>`;
+        let html = `<div class="linea"><span class="t">${horaActual()}</span><span class="p-${linea.tipo}">${linea.texto}</span></div>`;
+        // texto encriptado
+        if (linea.extra) {
+            html += `<span class="cifrado">${limpiar(linea.extra)}</span>`;
+        }
         consola.insertAdjacentHTML("beforeend", html);
         consola.scrollTop = consola.scrollHeight;
         await esperar(PAUSA);

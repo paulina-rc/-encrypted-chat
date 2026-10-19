@@ -55,7 +55,7 @@ def enviar():
         "encriptado": texto_encriptado,
         "hora": datetime.now().strftime("%H:%M"),
     })
-    consola.append(paso("Mensaje enviado", "enviado"))
+    consola.append(paso("Mensaje enviado", "enviado", texto_encriptado))
 
     return jsonify({"ok": True, "consola": consola})
 
@@ -74,7 +74,7 @@ def ver_mensajes():
         else:
             # mensaje del otro
             consola = []
-            consola.append(paso("Mensaje recibido", "recibido"))
+            consola.append(paso("Mensaje recibido", "recibido", m["encriptado"]))
             consola.append(paso("Desencriptando mensaje...", "desencriptando"))
             texto = desencriptar(m["encriptado"])
             if texto is None:
